@@ -30979,10 +30979,236 @@ module.exports = require('./lib/React');
 
 },{"./lib/React":55}],173:[function(require,module,exports){
 var React = require('react');
+
+var ColorCard = React.createClass({
+    displayName: "ColorCard",
+
+
+    render: function () {
+
+        var divStyle = {
+            "marginTop": "20px"
+        };
+
+        var valueStyle = {
+            "fontWeight": "bolder",
+            "color": "white"
+        };
+
+        var textStyle = {
+            "color": "white"
+        };
+
+        if (this.props.headingColor) {
+            var headingStyle = {
+                "background": this.props.headingColor
+            };
+        } else {
+            var headingStyle = {
+                "background": "#8B008B"
+            };
+        }
+
+        return React.createElement(
+            "div",
+            { style: divStyle, className: "panel panel-default" },
+            React.createElement(
+                "div",
+                { style: headingStyle, className: "panel-heading" },
+                React.createElement(
+                    "h4",
+                    { style: textStyle },
+                    this.props.title
+                ),
+                React.createElement(
+                    "h2",
+                    { style: valueStyle },
+                    this.props.value
+                )
+            ),
+            React.createElement(
+                "div",
+                { className: "panel-body" },
+                React.createElement(
+                    "p",
+                    null,
+                    this.props.text
+                )
+            )
+        );
+    }
+
+});
+
+module.exports = ColorCard;
+
+},{"react":172}],174:[function(require,module,exports){
+var React = require('react');
+
+var SimpleLabel = require('./SimpleLabel.jsx');
+
+var ColoredPanel = React.createClass({
+    displayName: 'ColoredPanel',
+
+
+    render: function () {
+
+        var panelStyle = {
+            "border": "none"
+        };
+
+        var bodyStyle = {
+            "minHeight": "200px"
+        };
+
+        var footerStyle = {
+            "background": "#484D4D"
+        };
+
+        bodyStyle = {
+            "minHeight": "200px",
+            "background": this.props.bodyColor
+        };
+
+        return React.createElement(
+            'div',
+            { style: panelStyle, className: 'panel container-fluid' },
+            React.createElement(
+                'div',
+                { style: bodyStyle, className: 'panel-body row' },
+                this.props.panelContent
+            ),
+            React.createElement(
+                'div',
+                { style: footerStyle, className: 'panel-footer row' },
+                React.createElement(
+                    'div',
+                    { className: 'col-sm-4' },
+                    React.createElement(SimpleLabel, { value: this.props.shotViews, text: 'Shot Views' })
+                ),
+                React.createElement(
+                    'div',
+                    { className: 'col-sm-4' },
+                    React.createElement(SimpleLabel, { value: this.props.likes, text: 'Likes' })
+                ),
+                React.createElement(
+                    'div',
+                    { className: 'col-sm-4' },
+                    React.createElement(SimpleLabel, { value: this.props.comments, text: 'Comments' })
+                )
+            )
+        );
+    }
+
+});
+
+module.exports = ColoredPanel;
+
+},{"./SimpleLabel.jsx":176,"react":172}],175:[function(require,module,exports){
+var React = require('react');
+
+var SimpleCard = React.createClass({
+    displayName: "SimpleCard",
+
+
+    render: function () {
+
+        var divStyle = {
+            "marginTop": "20px"
+        };
+
+        var valueStyle = {
+            "fontWeight": "bolder",
+            "color": "#515151"
+        };
+
+        var textStyle = {
+            "color": "lightgray"
+        };
+
+        return React.createElement(
+            "div",
+            { style: divStyle, className: "panel panel-default" },
+            React.createElement(
+                "div",
+                { className: "panel-body" },
+                React.createElement(
+                    "h2",
+                    { style: valueStyle },
+                    this.props.value
+                ),
+                React.createElement(
+                    "h4",
+                    { style: textStyle },
+                    this.props.text
+                )
+            )
+        );
+    }
+
+});
+
+module.exports = SimpleCard;
+
+},{"react":172}],176:[function(require,module,exports){
+var React = require('react');
+
+var SimpleLabel = React.createClass({
+    displayName: "SimpleLabel",
+
+
+    render: function () {
+
+        var valueStyle = {
+            "fontWeight": "bolder",
+            "color": "white",
+            "textAlign": "center"
+        };
+
+        var textStyle = {
+            "fontWeight": "bolder",
+            "color": "#AAACAC",
+            "textAlign": "center"
+        };
+
+        return React.createElement(
+            "div",
+            null,
+            React.createElement(
+                "h2",
+                { style: valueStyle },
+                this.props.value
+            ),
+            React.createElement(
+                "h4",
+                { style: textStyle },
+                this.props.text
+            )
+        );
+    }
+
+});
+
+module.exports = SimpleLabel;
+
+},{"react":172}],177:[function(require,module,exports){
+var React = require('react');
 var ReactDOM = require('react-dom');
 var $ = require('jquery');
-// var ListManager = require('./components/ListManager.jsx');
 
-// ReactDOM.render(<ListManager title="Ingredients"/>, document.getElementById('ingredients'));
+var SimpleCard = require('./components/SimpleCard.jsx');
+var ColorCard = require('./components/ColorCard.jsx');
+var ColoredPanel = require('./components/ColoredPanel.jsx');
 
-},{"jquery":26,"react":172,"react-dom":29}]},{},[173]);
+ReactDOM.render(React.createElement(SimpleCard, { text: 'new followers added this month', value: '20' }), document.getElementById('simple-card1'));
+ReactDOM.render(React.createElement(SimpleCard, { text: 'Average Monthly Income', value: '$ 1250' }), document.getElementById('simple-card2'));
+ReactDOM.render(React.createElement(SimpleCard, { text: 'Yearly Income Goal', value: '$ 13865' }), document.getElementById('simple-card3'));
+
+ReactDOM.render(React.createElement(ColorCard, { title: 'New visitors', value: '1.5k', text: 'wooow, thats a significant amount' }), document.getElementById('color-card1'));
+ReactDOM.render(React.createElement(ColorCard, { title: 'Bounce Rate', value: '50%', text: 'wooow, thats a significant amount', headingColor: 'darkblue' }), document.getElementById('color-card2'));
+ReactDOM.render(React.createElement(ColorCard, { title: 'Searchs', value: '28%', text: 'wooow, thats a significant amount', headingColor: 'darkred' }), document.getElementById('color-card3'));
+ReactDOM.render(React.createElement(ColorCard, { title: 'Traffic', value: '140.5kb', text: 'wooow, thats a significant amount', headingColor: 'darkgreen' }), document.getElementById('color-card4'));
+
+ReactDOM.render(React.createElement(ColoredPanel, { bodyColor: '#0096D0', shotViews: '15080', likes: '12000', comments: '5100' }), document.getElementById('colored-panel1'));
+
+},{"./components/ColorCard.jsx":173,"./components/ColoredPanel.jsx":174,"./components/SimpleCard.jsx":175,"jquery":26,"react":172,"react-dom":29}]},{},[177]);
